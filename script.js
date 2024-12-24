@@ -1,20 +1,65 @@
-document.getElementById('showMessage').addEventListener('click', () => {
-    const message = document.getElementById('message');
-    message.classList.toggle('hidden');
+// Câu hỏi lịch sử Việt Nam
+const questions = [
+    {
+        question: "Người Việt cổ sinh sống chủ yếu ở đâu?",
+        options: ["Đồng bằng Bắc Bộ", "Đồng bằng Nam Bộ", "Miền Trung", "Miền núi phía Bắc"],
+        answer: 0
+    },
+    {
+        question: "Ai là người sáng lập nước Việt Nam Dân chủ Cộng hòa?",
+        options: ["Hồ Chí Minh", "Trần Hưng Đạo", "Nguyễn Ái Quốc", "Lê Duẩn"],
+        answer: 0
+    },
+    {
+        question: "Chiến thắng Điện Biên Phủ diễn ra vào năm nào?",
+        options: ["1945", "1954", "1975", "1980"],
+        answer: 1
+    },
+    {
+        question: "Chiếc nón lá đầu tiên xuất hiện ở Việt Nam vào thời kỳ nào?",
+        options: ["Hùng Vương", "Đinh Bộ Lĩnh", "Lý Công Uẩn", "Ngô Quyền"],
+        answer: 0
+    }
+];
+
+// DOM elements
+const card = document.getElementById('card');
+const questionEl = document.getElementById('question');
+const answersEl = document.getElementById('answers');
+const successMessage = document.getElementById('successMessage');
+
+// Lật thiệp
+card.addEventListener('click', () => {
+    if (!card.classList.contains('flipped')) {
+        card.classList.add('flipped');
+        loadQuestion();
+    }
 });
 
-// Snowflake effect
-const snowContainer = document.getElementById('snow-container');
+// Tải câu hỏi
+function loadQuestion() {
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    const question = questions[randomIndex];
 
-function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.className = 'snowflake';
-    snowflake.style.left = `${Math.random() * 100}vw`;
-    snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
-    snowflake.innerText = '❄️';
-    snowContainer.appendChild(snowflake);
+    questionEl.textContent = question.question;
+    answersEl.innerHTML = '';
 
-    setTimeout(() => snowflake.remove(), 5000);
+    question.options.forEach((option, index) => {
+        const answerButton = document.createElement('div');
+        answerButton.className = 'answer';
+        answerButton.textContent = option;
+        answerButton.addEventListener('click', () => checkAnswer(index, question.answer));
+        answersEl.appendChild(answerButton);
+    });
 }
 
-setInterval(createSnowflake, 200);
+// Kiểm tra đáp án
+function checkAnswer(selected, correct) {
+    if (selected === correct) {
+        successMessage.classList.add('active');
+        questionEl.classList.add('hidden');
+        answersEl.classList.add('hidden');
+    } else {
+        alert("Sai rồi, thử lại nhé!");
+    }
+}

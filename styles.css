@@ -1,0 +1,128 @@
+/* Body với hiệu ứng tuyết rơi */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: radial-gradient(circle, #1e3a8a, #0f172a);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+body::before, body::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url('https://cdn.pixabay.com/photo/2016/11/29/08/39/snow-1869824_1280.png') repeat;
+    animation: snow 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+body::after {
+    animation-delay: -10s;
+    opacity: 0.5;
+}
+
+/* Thiệp */
+.card {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.8s;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-front {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.card-back {
+    background: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.content {
+    width: 100%;
+    text-align: center;
+}
+
+.question {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #374151;
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer {
+    padding: 10px;
+    border-radius: 5px;
+    background: #e5e7eb;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.answer:hover {
+    background: #d1d5db;
+}
+
+.success-message {
+    display: none;
+    font-size: 1.5em;
+    color: #059669;
+    margin-top: 20px;
+}
+
+.success-message.active {
+    display: block;
+}
+
+.answers.hidden {
+    display: none;
+}
+
+.question.hidden {
+    display: none;
+}
