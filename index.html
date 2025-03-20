@@ -1,30 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Giáng Sinh</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Review Truyện</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #f8f9fa; }
+        .container { width: 60%; margin: auto; padding: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+        .list { display: flex; flex-wrap: wrap; justify-content: space-around; }
+        .item { width: 30%; background: white; padding: 15px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.3s; }
+        .item:hover { transform: scale(1.05); }
+        .item img { width: 200px; height: 300px; object-fit: cover; border-radius: 10px; }
+        .title { font-size: 18px; font-weight: bold; margin: 10px 0; }
+        .desc { font-size: 14px; color: #666; }
+    </style>
 </head>
 <body>
-    <!-- Thiệp -->
-    <div class="card" id="card">
-        <div class="card-inner">
-            <div class="card-front">
-                Nhấn vào đây!
+    <div class="container">
+        <h1>Trang Review Truyện</h1>
+        <input type="text" id="search" placeholder="Nhập tên truyện..." onkeyup="filterTruyen()">
+        <div class="list" id="truyenList">
+            <div class="item" onclick="viewReview('Truyện A')">
+                <img src="img\1_files\hinh-anh-tien-hiep-trong-tuyet-800x450.jpg" alt="Truyện A">
+                <div class="title">Truyện A</div>
+                <div class="desc">Một câu chuyện hấp dẫn về cuộc phiêu lưu kỳ thú...</div>
             </div>
-            <div class="card-back">
-                <div class="content">
-                    <div class="question" id="question"></div>
-                    <div class="answers" id="answers"></div>
-                    <div class="success-message" id="successMessage">
-                        🎉 Chúc Em Giáng Sinh vui vẻ, Hoàng Anh! 🎄❤️
-                    </div>
-                </div>
+            <div class="item" onclick="viewReview('Truyện B')">
+                <img src="img\3.jpg" alt="Truyện B">
+                <div class="title">Truyện B</div>
+                <div class="desc">Hành trình đầy thử thách của nhân vật chính...</div>
+            </div>
+            <div class="item" onclick="viewReview('Truyện C')">
+                <img src="img\1_files\anh-tien-hiep-mac-ao-den-348x580.jpg" alt="Truyện C">
+                <div class="title">Truyện C</div>
+                <div class="desc">Một thế giới huyền bí mở ra với những bí ẩn bất ngờ...</div>
+            </div>
+            <div class="item" onclick="viewReview('Truyện D')">
+                <img src="img\1_files\anh-tien-hiep-mac-ao-den-348x580.jpg" alt="Truyện C">
+                <div class="title">Truyện C</div>
+                <div class="desc">Một thế giới huyền bí mở ra với những bí ẩn bất ngờ...</div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function filterTruyen() {
+            let input = document.getElementById('search').value.toLowerCase();
+            let items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                let text = item.querySelector('.title').textContent.toLowerCase();
+                item.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        function viewReview(name) {
+            window.location.href = `review.html?name=${encodeURIComponent(name)}`;
+        }
+    </script>
 </body>
 </html>
